@@ -11,9 +11,11 @@
 </head>
 
 <body>
-    <h1>make thor happy</h1>
-    <form action="response.php" method="POST">
-        <input type="text" name="textVal">
-    </form>
+    <div class="content">
+        <h1>make thor happy</h1>
+        <form action="response.php" method="POST">
+            <input type="text" name="textVal">
+        </form>
+    </div>
 </body>
 </html>

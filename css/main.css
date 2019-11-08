@@ -1,4 +1,6 @@
 /* page setup */
-/* html {
-    font-family: 'Domine', serif;
-} */
+.content {
+    width: 40rem;
+    height: 40rem;
+    margin: 20rem auto;
+}
