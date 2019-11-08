@@ -11,17 +11,22 @@
 </head>
 
 <body>
-    <h1>thor says</h1>
+    <div class="content">
+        <h1>thor says</h1>
 <?php
-    $connection;
-    $result;
-    
-    openConnection($connection);
-    getListings($connection, $result);
-    $message = mysqli_fetch_array($result);
-    echo $message['text'];
-    closeConnection($connection, $result);
+        $connection;
+        $result;
+        $otherResult;
+        
+        openConnection($connection);
+        getListings($connection, $result);
+        $message = mysqli_fetch_array($result);
+        echo $message['text'];
+        addMessage($connection, $otherResult);
+        closeConnection($connection, $result, $otherResult);
 ?>
+        <a href="index.php">go back</a>
+    </div>
 </body>
 </html>
 
@@ -54,12 +59,22 @@
                 ); 
         } 
     }
+
+    function addMessage(&$connection, &$result) {
+        $text = "";
+        $text = $_POST["textVal"];
+        if (!isset($_POST["textVal"])) {
+            ;
+        }
+        $insertQuery = "INSERT INTO compliments (text, isSafe) VALUES(\"".$text."\", 1);";
+        performQuery($connection, $result, $insertQuery);
+    }
     
     
     //function to perform the query to the table
-    function performQuery(&$connection, &$result, $queryToPerform) {
+    function performQuery(&$connection, &$result, $insertQuery) {
         //Perform database query
-        $result = mysqli_query($connection, $queryToPerform);
+        $result = mysqli_query($connection, $insertQuery);
 
         //Test if there was a query error 
         if (!$result) { 
@@ -70,7 +85,7 @@
 
     //function to select the proper listings
     function getListings(&$connection, &$result) {
-        $query = "SELECT text FROM compliments WHERE isSafe ORDER BY RAND(id) LIMIT 1";
+        $query = "SELECT text FROM compliments WHERE isSafe ORDER BY RAND() LIMIT 1";
         // echo $query;
 
         performQuery($connection, $result, $query);   //now perform the query
@@ -78,9 +93,10 @@
     
     
     //function to close the connection to the database
-    function closeConnection(&$connection, &$result) {
+    function closeConnection(&$connection, &$result, &$otherResult) {
         //Release returned data 
-        mysqli_free_result($result);
+        // mysqli_free_result($result);
+        // mysqli_free_result($otherResult);
         //Close database connection 
         mysqli_close($connection); 
     }

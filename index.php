@@ -12,8 +12,8 @@
 
 <body>
     <h1>make thor happy</h1>
-    <form action="response.php">
-        <input type="text" name="compliment-text">
+    <form action="response.php" method="POST">
+        <input type="text" name="textVal">
     </form>
 </body>
 </html>
