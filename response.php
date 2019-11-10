@@ -19,7 +19,7 @@
         $otherResult;
         
         openConnection($connection);
-        getListings($connection, $result);
+        getCompliment($connection, $result);
         $message = mysqli_fetch_array($result);
         echo $message['text'];
         addMessage($connection, $otherResult);
@@ -83,12 +83,12 @@
     }
 
 
-    //function to select the proper listings
-    function getListings(&$connection, &$result) {
+    //expects successful connection, returns msqli object
+    function getCompliment(&$connection, &$result) {
         $query = "SELECT text FROM compliments WHERE isSafe ORDER BY RAND() LIMIT 1";
         // echo $query;
 
-        performQuery($connection, $result, $query);   //now perform the query
+        performQuery($connection, $result, $query);
     }
     
     
