@@ -13,9 +13,22 @@
 <body>
     <div class="content">
         <h1>make thor happy</h1>
-        <form action="response.php" method="POST">
-            <input type="text" name="textVal">
+        <form action="response.php" method="POST" autocomplete="off" id="compliment-form">
+            <input type="text" name="textVal" id="compliment-input">
         </form>
+
+        
+        <div>
+            <a href="#" id="start_button" onclick="startDictation(event)">Dictate</a>
+            <!-- <a href="#" id="start_button" onclick="()">Dictate</a> -->
+        </div>
+
+        <div id="results">
+            <span id="final_span" class="final"></span>
+            <span id="interim_span" class="interim"></span>
+        </div>
     </div>
+
+    <script src="main.js"></script>
 </body>
 </html>

@@ -1,54 +1,65 @@
-try {
-    var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    var recognition = new SpeechRecognition();
-}
-catch (e) {
-    console.error(e);
-    $('.no-browser-support').show();
-    $('.app').hide();
-}
+var final_transcript = '';
+var recognizing = false;
 
+if ('webkitSpeechRecognition' in window) {
 
-recognition.onstart = function () {
-    instructions.text('Voice recognition activated. Try speaking into the microphone.');
-}
+    var recognition = new webkitSpeechRecognition();
 
-recognition.onspeechend = function () {
-    instructions.text('You were quiet for a while so voice recognition turned itself off.');
-}
+    recognition.continuous = true;
+    recognition.interimResults = true;
 
-recognition.onerror = function (event) {
-    if (event.error == 'no-speech') {
-        instructions.text('No speech was detected. Try again.');
+    recognition.onstart = function () {
+        recognizing = true;
+    };
+
+    recognition.onerror = function (event) {
+        console.log(event.error);
+    };
+
+    recognition.onend = function () {
+        recognizing = false;
+        document.getElementById("compliment-input").value = final_transcript;
+        document.getElementById("compliment-form").submit();
+    };
+
+    recognition.onresult = function (event) {
+        var interim_transcript = '';
+        for (var i = event.resultIndex; i < event.results.length; ++i) {
+            if (event.results[i].isFinal) {
+                final_transcript += event.results[i][0].transcript;
+            } else {
+                interim_transcript += event.results[i][0].transcript;
+            }
+        }
+        final_transcript = capitalize(final_transcript);
+        final_span.innerHTML = linebreak(final_transcript);
+        interim_span.innerHTML = linebreak(interim_transcript);
+
     };
 }
 
-recognition.onresult = function (event) {
-
-    // event is a SpeechRecognitionEvent object.
-    // It holds all the lines we have captured so far. 
-    // We only need the current one.
-    var current = event.resultIndex;
-
-    // Get a transcript of what was said.
-    var transcript = event.results[current][0].transcript;
-
-    // Add the current transcript to the contents of our Note.
-    noteContent += transcript;
-    noteTextarea.val(noteContent);
+var two_line = /\n\n/g;
+var one_line = /\n/g;
+function linebreak(s) {
+    return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
 }
 
-var mobileRepeatBug = (current == 1 && transcript == event.results[0][0].transcript);
-
-if (!mobileRepeatBug) {
-    noteContent += transcript;
-    noteTextarea.val(noteContent);
+function capitalize(s) {
+    return s.replace(s.substr(0, 1), function (m) { return m.toUpperCase(); });
 }
 
-$('#start-record-btn').on('click', function (e) {
+function stopRecog() {
+    if (recognizing) recognition.stop();
+}
+
+function startDictation(event) {
+    if (recognizing) {
+        recognition.stop();
+        return;
+    }
+    final_transcript = '';
+    recognition.lang = 'en-US';
     recognition.start();
-});
-
-$('#pause-record-btn').on('click', function (e) {
-    recognition.stop();
-});
+    final_span.innerHTML = '';
+    interim_span.innerHTML = '';
+}

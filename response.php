@@ -12,7 +12,7 @@
 
 <body>
     <div class="content">
-        <h1>thor says</h1>
+        <h1>thor says:</h1>
 <?php
         $connection;
         $result;
@@ -21,12 +21,18 @@
         openConnection($connection);
         getCompliment($connection, $result);
         $message = mysqli_fetch_array($result);
-        echo $message['text'];
+        echo "<p class=\"txt\">but of course. ".$message['text']."</p>";
         addMessage($connection, $otherResult);
         closeConnection($connection, $result, $otherResult);
 ?>
+        <select>
+
+        </select>
+
         <a href="index.php">go back</a>
     </div>
+
+    <script src="TTS.js"></script>
 </body>
 </html>
 
