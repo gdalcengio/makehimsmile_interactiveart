@@ -7,15 +7,18 @@
     <title>Make Thor Happy</title>
 
     <link href="css/normalize.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fondamento&display=swap" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
 </head>
 
 <body onclick="startDictation(event)">
     <div class="content">
+        <img src="img/thor_sad.jpg" alt="a picture of thor being sad">
         <h1>make thor happy</h1>
         <form action="response.php" method="POST" autocomplete="off" id="compliment-form">
             <input type="text" name="textVal" id="compliment-input">
         </form>
+
 
         
         <div>

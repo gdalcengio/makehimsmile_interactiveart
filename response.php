@@ -7,11 +7,13 @@
     <title>Make Thor Happy</title>
 
     <link href="css/normalize.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fondamento&display=swap" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
 </head>
 
 <body>
     <div class="content">
+        <img src="img/thor_happy.jpg" alt="a picture of thor being sad">
         <h1>thor says:</h1>
 <?php
         $connection;
@@ -24,7 +26,7 @@
         echo "<p class=\"txt\">and... ".$message['text']."</p>";
         addMessage($connection, $otherResult);
         closeConnection($connection, $result, $otherResult);
-?>
+        ?>
         <select>
 
         </select>
