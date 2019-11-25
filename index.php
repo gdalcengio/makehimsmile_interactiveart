@@ -10,7 +10,7 @@
     <link href="css/main.css" rel="stylesheet">
 </head>
 
-<body>
+<body onclick="startDictation(event)">
     <div class="content">
         <h1>make thor happy</h1>
         <form action="response.php" method="POST" autocomplete="off" id="compliment-form">
@@ -19,7 +19,7 @@
 
         
         <div>
-            <a href="#" id="start_button" onclick="startDictation(event)">Dictate</a>
+            <!-- <a href="#" id="start_button" >Dictate</a> -->
             <!-- <a href="#" id="start_button" onclick="()">Dictate</a> -->
         </div>
 

@@ -21,7 +21,7 @@
         openConnection($connection);
         getCompliment($connection, $result);
         $message = mysqli_fetch_array($result);
-        echo "<p class=\"txt\">but of course. ".$message['text']."</p>";
+        echo "<p class=\"txt\">and... ".$message['text']."</p>";
         addMessage($connection, $otherResult);
         closeConnection($connection, $result, $otherResult);
 ?>
