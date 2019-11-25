@@ -33,7 +33,7 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
     speechSynthesis.onvoiceschanged = populateVoiceList;
 }
 
-document.onclick = function (event) {
+window.onload = function (event) {
     event.preventDefault();
 
     var utterThis = new SpeechSynthesisUtterance(inputTxt.innerText);
